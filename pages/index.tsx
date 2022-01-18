@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
+import axios from 'axios';
 
 const startingCode = `const sum = (num1, num2) => {
   // Add Code Below
@@ -12,6 +14,20 @@ const startingCode = `const sum = (num1, num2) => {
 }`;
 
 const Home: NextPage = () => {
+  const [userCode, setUserCode] = useState(startingCode);
+
+  const handleCodeSubmit = () => {
+    axios
+      .post('/api/testcode/problem-1', { userCode })
+      .then(({ status, data }) => {
+        console.log(status);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <Head>
@@ -27,9 +43,11 @@ const Home: NextPage = () => {
           extensions={[javascript({ jsx: true })]}
           onChange={(value, viewUpdate) => {
             console.log('value:', value);
+            setUserCode(value);
           }}
         />
       </div>
+      <button onClick={handleCodeSubmit}>Submit Code</button>
     </div>
   );
 };
