@@ -2,6 +2,14 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import { execSync } from 'child_process';
 
+const testScript = `describe('Sum 2 Numbers', () => {
+  test('User create a function called sum', () => {
+    expect(typeof sum).toBe("function");
+  })
+
+  
+})`;
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const testname = req.query.testname;
 
