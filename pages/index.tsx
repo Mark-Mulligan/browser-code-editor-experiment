@@ -13,18 +13,37 @@ const startingCode = `const sum = (num1, num2) => {
   //Add Code Above
 }`;
 
+type testResult = {
+  ancestorTitles: string[];
+  failureMessages: string[];
+  fullName: string | null;
+  location: string | null;
+  status: string | null;
+  title: string | null;
+};
+
+type testcodeRouteResponse = {
+  status: number;
+  data: { testResults: testResult[] };
+};
+
 const Home: NextPage = () => {
   const [userCode, setUserCode] = useState(startingCode);
+  const [testResults, setTestResults] = useState([] as testResult[]);
+  const [isFetchingData, setIsFetchingData] = useState(false);
 
   const handleCodeSubmit = () => {
+    setIsFetchingData(true);
+
     axios
       .post('/api/testcode/problem-1', { userCode })
-      .then(({ status, data }) => {
-        console.log(status);
-        console.log(data);
+      .then(({ data }: testcodeRouteResponse) => {
+        setTestResults(data.testResults);
+        setIsFetchingData(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsFetchingData(false);
       });
   };
 
@@ -46,6 +65,16 @@ const Home: NextPage = () => {
             setUserCode(value);
           }}
         />
+      </div>
+      <div>
+        {isFetchingData && <p>Running Tests ...</p>}
+        {testResults.map((result, index) => {
+          return (
+            <ul key={`test-result-${index}`}>
+              {result.title} : {result.status}
+            </ul>
+          );
+        })}
       </div>
       <button onClick={handleCodeSubmit}>Submit Code</button>
     </div>
