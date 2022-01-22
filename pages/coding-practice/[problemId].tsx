@@ -5,6 +5,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
 import { Resizable } from 're-resizable';
+import { Button } from 'semantic-ui-react';
 import styles from '../../styles/practiceProblem.module.scss';
 
 const startingCode = `const sum = (num1, num2) => {
@@ -80,7 +81,7 @@ const PracticeProblem: NextPage = () => {
               </ul>
             );
           })}
-          <button onClick={handleCodeSubmit}>Submit Code</button>
+          <Button onClick={handleCodeSubmit}>Submit Code</Button>
         </Resizable>
         <div className={styles.codeContainer}>
           <CodeMirror
