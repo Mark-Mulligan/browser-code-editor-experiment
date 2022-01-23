@@ -8,7 +8,7 @@ const Navbar = () => {
         <Menu.Item header>Just Code</Menu.Item>
       </Link>
 
-      <Link href="/coding-practice" passHref>
+      <Link href="/coding-exercises" passHref>
         <Menu.Item name="coding-exercises" content="Coding Exercises" />
       </Link>
     </Menu>

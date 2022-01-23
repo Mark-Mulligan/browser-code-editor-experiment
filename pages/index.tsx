@@ -19,7 +19,7 @@ const Home: NextPage = () => {
             <Card.Content header="Coding Exercises" />
             <Card.Content description="Javascript challenges to help improve your skills" />
             <Card.Content extra>
-              <Link href="/coding-practice" passHref>
+              <Link href="/coding-exercises" passHref>
                 <Button basic color="green">
                   Start
                 </Button>
