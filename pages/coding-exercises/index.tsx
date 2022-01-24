@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { Container, Item, Icon } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
 import { allExerciseOverviewData } from '../../types';
@@ -14,15 +15,17 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
       <Item.Group divided>
         {Object.entries(codingExercisesOverviews).map(([key, value]) => {
           return (
-            <Item key={key}>
-              <Item.Content>
-                <Item.Header>{value.title}</Item.Header>
-                <Item.Description>{value.description}</Item.Description>
-                <Item.Extra>
-                  <Icon color="green" name="check" />
-                </Item.Extra>
-              </Item.Content>
-            </Item>
+            <Link href={`/coding-exercises/${key}`} passHref key={key}>
+              <Item>
+                <Item.Content>
+                  <Item.Header>{value.title}</Item.Header>
+                  <Item.Description>{value.description}</Item.Description>
+                  <Item.Extra>
+                    <Icon color="green" name="check" />
+                  </Item.Extra>
+                </Item.Content>
+              </Item>
+            </Link>
           );
         })}
       </Item.Group>

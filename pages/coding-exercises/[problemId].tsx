@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
@@ -31,6 +32,10 @@ type testcodeRouteResponse = {
 };
 
 const PracticeProblem: NextPage = () => {
+  const router = useRouter();
+
+  console.log(router);
+
   const [userCode, setUserCode] = useState(startingCode);
   const [testResults, setTestResults] = useState([] as testResult[]);
   const [isFetchingData, setIsFetchingData] = useState(false);
