@@ -36,11 +36,11 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
 export default CodingExercises;
 
 export const getStaticProps = async () => {
-  const codingExercisesData = getCodingExerciseOverviews();
+  const codingExercisesOverviews = getCodingExerciseOverviews();
 
   return {
     props: {
-      codingExercisesOverviews: codingExercisesData,
+      codingExercisesOverviews: codingExercisesOverviews,
     },
   };
 };

@@ -3,6 +3,7 @@ export type codingExerciseOverview = {
   description: string;
   instructions: string;
   testScript: string;
+  startingCode: string;
 };
 
 export type allExerciseOverviewData = {

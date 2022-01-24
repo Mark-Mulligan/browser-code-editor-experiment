@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -6,8 +6,11 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
 import { Resizable } from 're-resizable';
-import { Button } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
+import { getCodingExerciseData } from '../../utils/dataFetching';
 import styles from '../../styles/practiceProblem.module.scss';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import { codingExerciseOverview } from '../../types';
 
 const startingCode = `const sum = (num1, num2) => {
   // Add Code Below
@@ -16,6 +19,14 @@ const startingCode = `const sum = (num1, num2) => {
   
   //Add Code Above
 }`;
+
+interface IParams extends NextParsedUrlQuery {
+  problemKey: string;
+}
+
+interface PracticeProblemProps {
+  codingExerciseData: codingExerciseOverview;
+}
 
 type testResult = {
   ancestorTitles: string[];
@@ -31,10 +42,8 @@ type testcodeRouteResponse = {
   data: { testResults: testResult[] };
 };
 
-const PracticeProblem: NextPage = () => {
+const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData }) => {
   const router = useRouter();
-
-  console.log(router);
 
   const [userCode, setUserCode] = useState(startingCode);
   const [testResults, setTestResults] = useState([] as testResult[]);
@@ -76,8 +85,11 @@ const PracticeProblem: NextPage = () => {
             topLeft: false,
           }}
           defaultSize={{ width: 400, height: 'auto' }}
-          style={{ borderRight: '2px solid black' }}
+          style={{ borderRight: '2px solid black', paddingLeft: '10px', paddingRight: '10px' }}
         >
+          <h2>{codingExerciseData.title}</h2>
+          <p>{codingExerciseData.instructions}</p>
+          <h3>Test Criteria</h3>
           {isFetchingData && <p>Running Tests ...</p>}
           {testResults.map((result, index) => {
             return (
@@ -90,7 +102,7 @@ const PracticeProblem: NextPage = () => {
         </Resizable>
         <div className={styles.codeContainer}>
           <CodeMirror
-            value={startingCode}
+            value={codingExerciseData.startingCode}
             height="400px"
             extensions={[javascript({ jsx: true })]}
             onChange={(value, viewUpdate) => {
@@ -105,3 +117,21 @@ const PracticeProblem: NextPage = () => {
 };
 
 export default PracticeProblem;
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [{ params: { problemKey: 'sum-two-ints' } }, { params: { problemKey: 'sort-array-ints' } }],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { problemKey } = context.params as IParams;
+  const codingExerciseData = getCodingExerciseData(problemKey);
+
+  return {
+    props: {
+      codingExerciseData,
+    },
+  };
+};

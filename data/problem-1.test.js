@@ -2,8 +2,7 @@ const sum = (num1, num2) => {
   // Add Code Below
   return num1 + num2;
 
-  
-  //Add Code Above
+  // Add Code Above
 }
 const testCases = [
   { num1: 1, num2: 2, result: 3 },
