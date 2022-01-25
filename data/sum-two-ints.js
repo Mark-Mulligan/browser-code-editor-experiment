@@ -4,4 +4,4 @@ const sum = (num1, num2) => {
 
   // Add Code Above
 }
-sum();
+sum(1, 2);

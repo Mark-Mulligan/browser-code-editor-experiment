@@ -5,7 +5,7 @@
     "instructions": "Create a function that takes in two arguments (num1 & num2 that will both be integers) and returns a number that is the sum of the two integers provided.",
     "testScriptName": "sumTwoIntsTestScript",
     "startingCode": "const sum = (num1, num2) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
-    "functionCall": "sum();",
+    "functionCall": "sum(1, 2);",
     "testCriteria": [
       "User created a function called sum",
       "function returns a number",
@@ -20,7 +20,7 @@
     "instructions": "Create a function that takes in one argument (an array of integers) and a new array with those same integers sorted from least to greatest.",
     "testScriptName": "sortArrayIntsTestScript",
     "startingCode": "const sortArr = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
-    "functionCall": "sortArr()",
+    "functionCall": "sortArr([1, 4, 3])",
     "testCriteria": [
       "User created a function called sortArr",
       "sortArr([1, 2, 6, 4, 2]) returns [1, 2, 2, 4, 6]",
