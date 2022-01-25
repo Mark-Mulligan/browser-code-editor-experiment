@@ -4,6 +4,7 @@ export type codingExerciseOverview = {
   instructions: string;
   testScript: string;
   startingCode: string;
+  testCriteria: string[];
 };
 
 export type allExerciseOverviewData = {

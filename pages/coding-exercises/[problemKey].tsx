@@ -6,7 +6,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
 import { Resizable } from 're-resizable';
-import { Button, Container } from 'semantic-ui-react';
+import { Button, Container, Loader, Icon, Dimmer } from 'semantic-ui-react';
 import { getCodingExerciseData } from '../../utils/dataFetching';
 import styles from '../../styles/practiceProblem.module.scss';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
@@ -90,15 +90,31 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
           <h2>{codingExerciseData.title}</h2>
           <p>{codingExerciseData.instructions}</p>
           <h3>Test Criteria</h3>
-          {isFetchingData && <p>Running Tests ...</p>}
-          {testResults.map((result, index) => {
-            return (
-              <ul key={`test-result-${index}`}>
-                {result.title} : {result.status}
-              </ul>
-            );
-          })}
-          <Button onClick={handleCodeSubmit}>Submit Code</Button>
+          <ul>
+            {codingExerciseData.testCriteria.map((test, index) => {
+              return <li key={`test-${index}`}>{test}</li>;
+            })}
+          </ul>
+          <h3>Test Results</h3>
+          {testResults.length === 0 && <p>Submit code to get test results</p>}
+          <ul>
+            {testResults.map((result, index) => {
+              return (
+                <li key={`test-result-${index}`}>
+                  {result.title} :{' '}
+                  {result.status === 'passed' ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
+                </li>
+              );
+            })}
+          </ul>
+
+          <Dimmer active={isFetchingData} inverted>
+            <Loader>Running Tests</Loader>
+          </Dimmer>
+
+          <Button fluid positive onClick={handleCodeSubmit}>
+            Submit Code
+          </Button>
         </Resizable>
         <div className={styles.codeContainer}>
           <CodeMirror

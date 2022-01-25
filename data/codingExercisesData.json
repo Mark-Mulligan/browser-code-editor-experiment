@@ -18,6 +18,13 @@
     "description": "Create a function that returns a sorted array of integers",
     "instructions": "Create a function that takes in one argument (an array of integers) and a new array with those same integers sorted from least to greatest.",
     "testScript": "sortArrayIntsTestScript",
-    "startingCode": "const sortArr = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}"
+    "startingCode": "const sortArr = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
+    "testCriteria": [
+      "User created a function called sortArr",
+      "function returns an array of numbers",
+      "sum(1, 2) returns 3",
+      "sum(5, 10) returns 15",
+      "sum(-1, -4 returns -5"
+    ]
   }
 }
