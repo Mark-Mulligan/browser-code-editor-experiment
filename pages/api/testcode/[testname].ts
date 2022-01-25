@@ -1,38 +1,34 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import { execSync } from 'child_process';
-
-const testScript = `const testCases = [
-  { num1: 1, num2: 2, result: 3 },
-  { num1: 5, num2: 10, result: 15 },
-  { num1: -1, num2: -4, result: -5 },
-];
-
-describe('Sum 2 Numbers', () => {
-  test('User created a function called sum', () => {
-    expect(typeof sum).toBe('function');
-  });
-
-  test('Function returns a number', () => {
-    expect(typeof sum(1, 2)).toBe('number');
-  });
-
-  test.each(testCases)('sum($num1, $num2) returns $result.', ({ num1, num2, result }) => {
-    expect(sum(num1, num2)).toBe(result);
-  });
-});`;
+import { testScripts } from '../../../data/testLogic';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const testname = req.query.testname;
+  const testname = req.query.testname as string;
 
   console.log(testname);
 
   if (req.method === 'POST') {
     const { userCode } = req.body;
 
+    // get test script to add to user input
+    const testOverviewData = JSON.parse(fs.readFileSync('data/codingExercisesData.json', 'utf-8'));
+    let testScriptName = testOverviewData[testname].testScript as 'sumTwoIntsTestScript' | 'sortArrayIntsTestScript';
+    let testScriptCode = testScripts[testScriptName];
+
+    // write user input to files
     fs.writeFileSync(`data/${testname}.test.js`, `${userCode}\n`);
-    fs.appendFileSync(`data/${testname}.test.js`, testScript);
-    execSync(`jest ${testname} --json --outputFile=data/${testname}-results.json`);
+
+    // write tests to file
+    fs.appendFileSync(`data/${testname}.test.js`, testScriptCode);
+
+    // run tests on file and get test results
+    try {
+      execSync(`jest ${testname} --json --outputFile=data/${testname}-results.json`);
+    } catch (err) {
+      console.log(err);
+    }
+
     let results = JSON.parse(fs.readFileSync(`data/${testname}-results.json`, 'utf-8'));
     let testResults = results.testResults[0].assertionResults;
 

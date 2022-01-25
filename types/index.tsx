@@ -10,3 +10,12 @@ export type codingExerciseOverview = {
 export type allExerciseOverviewData = {
   [key: string]: codingExerciseOverview;
 };
+
+export type testResult = {
+  ancestorTitles: string[];
+  failureMessages: string[];
+  fullName: string | null;
+  location: string | null;
+  status: string | null;
+  title: string | null;
+};

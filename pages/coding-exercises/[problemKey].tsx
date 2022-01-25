@@ -5,20 +5,11 @@ import { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import axios from 'axios';
-import { Resizable } from 're-resizable';
-import { Button, Container, Loader, Icon, Dimmer } from 'semantic-ui-react';
 import { getCodingExerciseData } from '../../utils/dataFetching';
 import styles from '../../styles/practiceProblem.module.scss';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { codingExerciseOverview } from '../../types';
-
-const startingCode = `const sum = (num1, num2) => {
-  // Add Code Below
-
-
-  
-  //Add Code Above
-}`;
+import { codingExerciseOverview, testResult } from '../../types';
+import TestInfoPanel from '../../components/TestInfoPanel';
 
 interface IParams extends NextParsedUrlQuery {
   problemKey: string;
@@ -28,15 +19,6 @@ interface PracticeProblemProps {
   codingExerciseData: codingExerciseOverview;
 }
 
-type testResult = {
-  ancestorTitles: string[];
-  failureMessages: string[];
-  fullName: string | null;
-  location: string | null;
-  status: string | null;
-  title: string | null;
-};
-
 type testcodeRouteResponse = {
   status: number;
   data: { testResults: testResult[] };
@@ -45,7 +27,7 @@ type testcodeRouteResponse = {
 const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData }) => {
   const router = useRouter();
 
-  const [userCode, setUserCode] = useState(startingCode);
+  const [userCode, setUserCode] = useState(codingExerciseData.startingCode);
   const [testResults, setTestResults] = useState([] as testResult[]);
   const [isFetchingData, setIsFetchingData] = useState(false);
 
@@ -53,7 +35,7 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
     setIsFetchingData(true);
 
     axios
-      .post('/api/testcode/problem-1', { userCode })
+      .post(`/api/testcode/${router.query.problemKey}`, { userCode })
       .then(({ data }: testcodeRouteResponse) => {
         setTestResults(data.testResults);
         setIsFetchingData(false);
@@ -73,56 +55,18 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
       </Head>
 
       <div className={styles.codingPracticeContainer}>
-        <Resizable
-          enable={{
-            top: false,
-            right: true,
-            bottom: false,
-            left: false,
-            topRight: false,
-            bottomRight: false,
-            bottomLeft: false,
-            topLeft: false,
-          }}
-          defaultSize={{ width: 400, height: 'auto' }}
-          style={{ borderRight: '2px solid black', paddingLeft: '10px', paddingRight: '10px' }}
-        >
-          <h2>{codingExerciseData.title}</h2>
-          <p>{codingExerciseData.instructions}</p>
-          <h3>Test Criteria</h3>
-          <ul>
-            {codingExerciseData.testCriteria.map((test, index) => {
-              return <li key={`test-${index}`}>{test}</li>;
-            })}
-          </ul>
-          <h3>Test Results</h3>
-          {testResults.length === 0 && <p>Submit code to get test results</p>}
-          <ul>
-            {testResults.map((result, index) => {
-              return (
-                <li key={`test-result-${index}`}>
-                  {result.title} :{' '}
-                  {result.status === 'passed' ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
-                </li>
-              );
-            })}
-          </ul>
-
-          <Dimmer active={isFetchingData} inverted>
-            <Loader>Running Tests</Loader>
-          </Dimmer>
-
-          <Button fluid positive onClick={handleCodeSubmit}>
-            Submit Code
-          </Button>
-        </Resizable>
+        <TestInfoPanel
+          codingExerciseOverview={codingExerciseData}
+          testResults={testResults}
+          isRunningTests={isFetchingData}
+          handleCodeSubmit={handleCodeSubmit}
+        />
         <div className={styles.codeContainer}>
           <CodeMirror
-            value={codingExerciseData.startingCode}
-            height="400px"
+            value={userCode}
+            height="auto"
             extensions={[javascript({ jsx: true })]}
             onChange={(value, viewUpdate) => {
-              console.log('value:', value);
               setUserCode(value);
             }}
           />
