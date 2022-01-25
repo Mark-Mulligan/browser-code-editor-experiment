@@ -12,6 +12,7 @@ import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { codingExerciseOverview, testResult } from '../../types';
 import TestInfoPanel from '../../components/TestInfoPanel';
 import { Modal, Header, Icon, Button } from 'semantic-ui-react';
+import { saveToLocalStorage } from '../../utils/localStorage';
 
 interface IParams extends NextParsedUrlQuery {
   problemKey: string;
@@ -56,8 +57,9 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
         setOverallResult(data.overallResult);
         setIsFetchingData(false);
 
-        if (data.overallResult === 'passed') {
+        if (data.overallResult === 'passed' && typeof router.query.problemKey === 'string') {
           setShowModal(true);
+          saveToLocalStorage(router.query.problemKey);
         }
       })
       .catch((err) => {

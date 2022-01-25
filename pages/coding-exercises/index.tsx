@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { Container, Item, Icon } from 'semantic-ui-react';
+import { Container, Item, Label } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
+import { checkItemComplete } from '../../utils/localStorage';
 import { allExerciseOverviewData } from '../../types';
 
 type CodingExercisesProps = {
@@ -16,12 +17,12 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
         {Object.entries(codingExercisesOverviews).map(([key, value]) => {
           return (
             <Link href={`/coding-exercises/${key}`} passHref key={key}>
-              <Item>
+              <Item className="noColorOnHover">
                 <Item.Content>
-                  <Item.Header>{value.title}</Item.Header>
+                  <Item.Header as="h2">{value.title}</Item.Header>
                   <Item.Description>{value.description}</Item.Description>
                   <Item.Extra>
-                    <Icon color="green" name="check" />
+                    {checkItemComplete(key) ? <Label color="green">Completed</Label> : <Label>Not Completed</Label>}
                   </Item.Extra>
                 </Item.Content>
               </Item>
