@@ -4,6 +4,7 @@ import { Container, Item, Label } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
 import { checkItemComplete } from '../../utils/localStorage';
 import { allExerciseOverviewData } from '../../types';
+import styles from '../../styles/codingExercises.module.scss';
 
 type CodingExercisesProps = {
   codingExercisesOverviews: allExerciseOverviewData;
@@ -12,24 +13,20 @@ type CodingExercisesProps = {
 const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOverviews }) => {
   return (
     <Container>
-      <h1>Coding Exercises</h1>
-      <Item.Group divided>
+      <h1 style={{ margin: 0 }}>Coding Exercises</h1>
+      <ul className={styles.codingOverviews}>
         {Object.entries(codingExercisesOverviews).map(([key, value]) => {
           return (
             <Link href={`/coding-exercises/${key}`} passHref key={key}>
-              <Item className="noColorOnHover">
-                <Item.Content>
-                  <Item.Header as="h2">{value.title}</Item.Header>
-                  <Item.Description>{value.description}</Item.Description>
-                  <Item.Extra>
-                    {checkItemComplete(key) ? <Label color="green">Completed</Label> : <Label>Not Completed</Label>}
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
+              <li>
+                <h3>{value.title}</h3>
+                <p>{value.description}</p>
+                {checkItemComplete(key) ? <Label color="green">Completed</Label> : <Label>Not Completed</Label>}
+              </li>
             </Link>
           );
         })}
-      </Item.Group>
+      </ul>
     </Container>
   );
 };

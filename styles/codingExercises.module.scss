@@ -1,0 +1,16 @@
+.codingOverviews {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+
+  li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+
+  li:hover {
+    background: rgb(245, 245, 245);
+    cursor: pointer;
+  }
+}
