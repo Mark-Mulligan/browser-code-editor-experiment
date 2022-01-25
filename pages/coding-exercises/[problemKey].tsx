@@ -1,5 +1,6 @@
 import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
@@ -10,6 +11,7 @@ import styles from '../../styles/practiceProblem.module.scss';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { codingExerciseOverview, testResult } from '../../types';
 import TestInfoPanel from '../../components/TestInfoPanel';
+import { Modal, Header, Icon, Button } from 'semantic-ui-react';
 
 interface IParams extends NextParsedUrlQuery {
   problemKey: string;
@@ -21,7 +23,12 @@ interface PracticeProblemProps {
 
 type testcodeRouteResponse = {
   status: number;
-  data: { testResults: testResult[] };
+  data: {
+    testResults: testResult[];
+    numTestsPassed: number;
+    numTestsFailed: number;
+    overallResult: string;
+  };
 };
 
 const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData }) => {
@@ -29,19 +36,38 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
 
   const [userCode, setUserCode] = useState(codingExerciseData.startingCode);
   const [testResults, setTestResults] = useState([] as testResult[]);
+  const [numTestsPassed, setNumTestsPassed] = useState(0);
+  const [numTestsFailed, setNumTestsFailed] = useState(0);
+  const [overallResult, setOverallResult] = useState('');
   const [isFetchingData, setIsFetchingData] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const handleCodeSubmit = () => {
     setIsFetchingData(true);
+    setErrorMessage('');
 
     axios
       .post(`/api/testcode/${router.query.problemKey}`, { userCode })
       .then(({ data }: testcodeRouteResponse) => {
         setTestResults(data.testResults);
+        setNumTestsPassed(data.numTestsPassed);
+        setNumTestsFailed(data.numTestsFailed);
+        setOverallResult(data.overallResult);
         setIsFetchingData(false);
+
+        if (data.overallResult === 'passed') {
+          setShowModal(true);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 400) {
+          setErrorMessage(err.response.data.message);
+        } else {
+          console.log(err);
+          setErrorMessage('There was a server error while processing your code. Try again.');
+        }
+
         setIsFetchingData(false);
       });
   };
@@ -54,10 +80,32 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Modal basic onClose={() => setShowModal(false)} onOpen={() => setShowModal(true)} open={showModal} size="small">
+        <Header icon>
+          <Icon name="check circle" />
+          Exercise Complete
+        </Header>
+        <Modal.Content></Modal.Content>
+        <Modal.Actions style={{ textAlign: 'center' }}>
+          <Button basic inverted onClick={() => setShowModal(false)}>
+            <Icon name="remove" /> Stay Here
+          </Button>
+          <Link href="/coding-exercises" passHref>
+            <Button color="green" inverted onClick={() => setShowModal(false)}>
+              <Icon name="checkmark" /> More challenges
+            </Button>
+          </Link>
+        </Modal.Actions>
+      </Modal>
+
       <div className={styles.codingPracticeContainer}>
         <TestInfoPanel
           codingExerciseOverview={codingExerciseData}
           testResults={testResults}
+          numTestsPassed={numTestsPassed}
+          numTestsFailed={numTestsFailed}
+          overallResult={overallResult}
+          errorMessage={errorMessage}
           isRunningTests={isFetchingData}
           handleCodeSubmit={handleCodeSubmit}
         />
