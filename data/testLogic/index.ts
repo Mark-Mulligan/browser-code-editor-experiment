@@ -1,3 +1,5 @@
+import { exportAllDeclaration } from '@babel/types';
+
 const sumTwoIntsTestScript = `const testCases = [
   { num1: 1, num2: 2, result: 3 },
   { num1: 5, num2: 10, result: 15 },
@@ -20,7 +22,8 @@ describe('Sum 2 Numbers', () => {
 
 const sortArrayIntsTestScript = `const testCases = [
   { numArr: [1, 2, 6, 4, 2], result: [1, 2, 2, 4, 6] },
-  { numArr: [10, -3, 2, -1, 7, 9], result: [-3, -1, 2, 7, 9, 10] }
+  { numArr: [10, -3, 2, -1, 7, 9], result: [-3, -1, 2, 7, 9, 10] },
+  { numArr: [-1, 1000, 10, 22, -22, 3], result: [-22, -1, 3, 10, 22, 1000] }
 ];
 
 describe('Sort Array of Integers', () => {
@@ -37,7 +40,28 @@ describe('Sort Array of Integers', () => {
   })
 });`;
 
+const largestNumInArrayTestScript = `const testCases = [
+  { numArr: [1, 8, 10, 5, 12], result: 12 },
+  { numArr: [-4, 1, 80, 2, 1], result: 80 },
+  { numArr: [-5, -2, -1, -3, -20], result: -1}
+ ];
+ 
+ describe('Find Largets Integer in an Array', () => {
+  test('User created a function called largestNum', () => {
+    expect(typeof largestNum).toBe('function');
+  });
+
+  test('largestNum returns a single number', () => {
+    expect(typeof largestNum([1, 2, 3])).toBe('number')
+  });
+
+  test.each(testCases)('largestNum($numArr) returns $result.', ({ numArr, result }) => {
+    expect(largestNum(numArr)).toBe(result);
+  })
+});`;
+
 export const testScripts = {
   sumTwoIntsTestScript,
   sortArrayIntsTestScript,
+  largestNumInArrayTestScript,
 };

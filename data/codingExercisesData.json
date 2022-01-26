@@ -24,7 +24,23 @@
     "testCriteria": [
       "User created a function called sortArr",
       "sortArr([1, 2, 6, 4, 2]) returns [1, 2, 2, 4, 6]",
-      "sortArr([10, -3, 2, -1, 7, 9]) returns [-3, -1, 2, 7, 9, 10]"
+      "sortArr([10, -3, 2, -1, 7, 9]) returns [-3, -1, 2, 7, 9, 10]",
+      "sortArr([-1, 1000, 10, 22, -22, 3]) returns [-22, -1, 3, 10, 22, 1000]"
+    ]
+  },
+  "largest-num-in-array": {
+    "title": "Find Largets Number",
+    "description": "Create a function that returns a the largest number from an array of integers",
+    "instructions": "Given a function that takes in an array of integers, return the largest number from that array.",
+    "testScriptName": "largestNumInArrayTestScript",
+    "startingCode": "const largestNum = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
+    "functionCall": "largestNum([1, 2, 3])",
+    "testCriteria": [
+      "User created a function called largestNum",
+      "function return a number",
+      "largestNum([1, 8, 10, 5, 12]) returns 12",
+      "largestNum([-4, 1, 80, 2, 1]) returns 80",
+      "largestNum([-5, -2, -1, -3, -20]) returns -1"
     ]
   }
 }

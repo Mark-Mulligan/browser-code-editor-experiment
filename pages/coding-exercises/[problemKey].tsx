@@ -35,7 +35,7 @@ type testcodeRouteResponse = {
 const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData }) => {
   const router = useRouter();
 
-  const [userCode, setUserCode] = useState(codingExerciseData.startingCode);
+  const [userCode, setUserCode] = useState(codingExerciseData?.startingCode || '');
   const [testResults, setTestResults] = useState([] as testResult[]);
   const [numTestsPassed, setNumTestsPassed] = useState(0);
   const [numTestsFailed, setNumTestsFailed] = useState(0);
