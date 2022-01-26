@@ -57,5 +57,20 @@
       "vowelCount('If you have not checked out FreeCodeCamp, you should. It's Awesome!!!') returns 26",
       "vowelCount('THIS IS UPPER CASE. this is lowercase.') returns 12"
     ]
+  },
+  "sort-the-days": {
+    "title": "Sort The Days",
+    "description": "Create a function that sorts the given days of the week.",
+    "instructions": "Create a function that takes in a string of days seperated by commas (ex. 'mon,wed,tues').  Return a string of days sorted with Monday being the start of the week and sunday being the last. The possible values in the provided string are 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat', 'sun'.",
+    "testScriptName": "sortTheDaysTestScript",
+    "startingCode": "const sortDays = (dayStr) => {\n  // Add Code Below\n\n\n // Add Code Above\n}",
+    "functionCall": "sortDays('mon,wed,tues')",
+    "testCriteria": [
+      "User created a function called sortDays",
+      "sortDays returns a number",
+      "sortDays('mon,wed,tues,sat') returns 'mon,tues,wed,sat'",
+      "sortDays('sun,sat,fri,thurs,wed,tues,mon') returns 'mon,tues,wed,thrus,fri,sat,sun'",
+      "sortDays('wed,tues,sat,fri') returns 'tues,wed,fri,sat'"
+    ]
   }
 }
