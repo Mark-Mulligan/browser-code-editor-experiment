@@ -29,7 +29,7 @@
     ]
   },
   "largest-num-in-array": {
-    "title": "Find Largets Number",
+    "title": "Find Largest Number",
     "description": "Create a function that returns a the largest number from an array of integers",
     "instructions": "Given a function that takes in an array of integers, return the largest number from that array.",
     "testScriptName": "largestNumInArrayTestScript",
