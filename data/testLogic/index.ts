@@ -1,5 +1,3 @@
-import { exportAllDeclaration } from '@babel/types';
-
 const sumTwoIntsTestScript = `const testCases = [
   { num1: 1, num2: 2, result: 3 },
   { num1: 5, num2: 10, result: 15 },

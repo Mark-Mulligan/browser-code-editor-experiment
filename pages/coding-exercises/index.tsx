@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { Container, Item, Label } from 'semantic-ui-react';
+import { Container, Label } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
 import { checkItemComplete } from '../../utils/localStorage';
 import { allExerciseOverviewData } from '../../types';
