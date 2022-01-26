@@ -80,7 +80,7 @@ const countTheVowelsTestScript = `const testCases = [
 
 const sortTheDaysTestScript = `const testCases = [
   { str: 'mon,wed,tues,sat', result: 'mon,tues,wed,sat' },
-  { str: 'sun,sat,fri,thurs,wed,tues,mon', result: 'mon,tues,wed,thrus,fri,sat,sun' },
+  { str: 'sun,sat,fri,thurs,wed,tues,mon', result: 'mon,tues,wed,thurs,fri,sat,sun' },
   { str: 'wed,tues,sat,fri', result: 'tues,wed,fri,sat' }
  ];
  
