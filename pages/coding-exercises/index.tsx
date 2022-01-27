@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Container, Label } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
-import { checkItemComplete } from '../../utils/localStorage';
+import { checkItemComplete, getItemsComplete } from '../../utils/localStorage';
 import { allExerciseOverviewData } from '../../types';
 import styles from '../../styles/codingExercises.module.scss';
 
@@ -10,7 +12,11 @@ type CodingExercisesProps = {
   codingExercisesOverviews: allExerciseOverviewData;
 };
 
+const StatusLabel = dynamic(() => import('../../components/StatusLabel'), { ssr: false });
+
 const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOverviews }) => {
+  const [itemsComplete, setItemsComplete] = useState(getItemsComplete());
+
   return (
     <Container>
       <h1 style={{ margin: 0 }}>Coding Exercises</h1>
@@ -21,7 +27,7 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
               <li>
                 <h3>{value.title}</h3>
                 <p>{value.description}</p>
-                {checkItemComplete(key) ? <Label color="green">Completed</Label> : <Label>Not Completed</Label>}
+                <StatusLabel itemsComplete={itemsComplete} exerciseKey={key} />
               </li>
             </Link>
           );

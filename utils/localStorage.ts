@@ -27,3 +27,12 @@ export const checkItemComplete = (currentItemKey: string): boolean => {
 
   return false;
 };
+
+export const getItemsComplete = (): {} => {
+  if (typeof window !== 'undefined' && localStorage.getItem('exercisesComplete')) {
+    let itemsComplete = localStorage.getItem('exercisesComplete');
+    return itemsComplete ? JSON.parse(itemsComplete) : {};
+  }
+
+  return {};
+};
