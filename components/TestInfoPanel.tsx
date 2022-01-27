@@ -1,5 +1,6 @@
 import { Resizable } from 're-resizable';
 import { Button, Loader, Icon, Dimmer, Message } from 'semantic-ui-react';
+import Link from 'next/link';
 import { codingExerciseOverview, testResult } from '../types';
 
 type TestInfoPanelProps = {
@@ -79,7 +80,13 @@ const TestInfoPanel = ({
         topLeft: false,
       }}
       defaultSize={{ width: 400, height: 'auto' }}
-      style={{ borderRight: '2px solid black', paddingLeft: '10px', paddingRight: '10px' }}
+      style={{
+        borderRight: '2px solid rgba(34, 36, 38, 0.15)',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        paddingTop: '1rem',
+        background: 'rgb(240, 240, 240)',
+      }}
     >
       <h2>{codingExerciseOverview.title}</h2>
       <p>{codingExerciseOverview.instructions}</p>
@@ -97,9 +104,13 @@ const TestInfoPanel = ({
         <Loader>Running Tests</Loader>
       </Dimmer>
 
-      <Button fluid positive onClick={handleCodeSubmit}>
+      <Button className="mb-10" fluid positive onClick={handleCodeSubmit}>
         Submit Code
       </Button>
+
+      <Link href="/coding-exercises" passHref>
+        <Button fluid>Back To Exercises</Button>
+      </Link>
     </Resizable>
   );
 };

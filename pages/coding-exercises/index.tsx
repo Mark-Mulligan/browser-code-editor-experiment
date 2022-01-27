@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Container, Label } from 'semantic-ui-react';
+import { useState } from 'react';
+import { Container } from 'semantic-ui-react';
 import { getCodingExerciseOverviews } from '../../utils/dataFetching';
-import { checkItemComplete, getItemsComplete } from '../../utils/localStorage';
+import { getItemsComplete } from '../../utils/localStorage';
 import { allExerciseOverviewData } from '../../types';
 import styles from '../../styles/codingExercises.module.scss';
 
@@ -18,8 +18,8 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
   const [itemsComplete, setItemsComplete] = useState(getItemsComplete());
 
   return (
-    <Container>
-      <h1 style={{ margin: 0 }}>Coding Exercises</h1>
+    <Container className={styles.container}>
+      <h1 className={styles.title}>Coding Exercises</h1>
       <ul className={styles.codingOverviews}>
         {Object.entries(codingExercisesOverviews).map(([key, value]) => {
           return (

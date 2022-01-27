@@ -3,7 +3,7 @@ import { Menu } from 'semantic-ui-react';
 
 const Navbar = () => {
   return (
-    <Menu>
+    <Menu style={{ marginBottom: 0 }}>
       <Link href="/" passHref>
         <Menu.Item header>Just Code</Menu.Item>
       </Link>

@@ -1,4 +1,4 @@
-import type { NextPage, GetStaticProps } from 'next';
+import type { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -128,10 +128,10 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
 
 export default PracticeProblem;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [{ params: { problemKey: 'sum-two-ints' } }, { params: { problemKey: 'sort-array-ints' } }],
-    fallback: true,
+    fallback: false,
   };
 };
 
