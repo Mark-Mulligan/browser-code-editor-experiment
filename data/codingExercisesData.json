@@ -67,5 +67,21 @@
       "sortDays('sun,sat,fri,thurs,wed,tues,mon') returns 'mon,tues,wed,thrus,fri,sat,sun'",
       "sortDays('wed,tues,sat,fri') returns 'tues,wed,fri,sat'"
     ]
+  },
+
+  "find-the-index-1": {
+    "title": "Find the Index (Level 1)",
+    "description": "Create a function that returns the index of a give value in an array.",
+    "instructions": "Create a function that takes in two arguments, an array and a target value. The function will return the index of that value in the array. If the target value is not in the array or the array is empty, return -1.",
+    "testScriptName": "findTheIndexTestScript",
+    "startingCode": "const findIndex = (sourceArr, targetValue) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
+    "testCriteria": [
+      "User created a function called findIndex",
+      "Function returns a number",
+      "findIndex([0, 2, 10, -10, 3], -10) returns 3",
+      "findIndex(['testing', 'test', 'tester', 'tested'], 'test') returns 1",
+      "findIndex([]) returns -1",
+      "findIndex(['apple', 'orange', 'grape'], 'pineapple') returns -1"
+    ]
   }
 }
