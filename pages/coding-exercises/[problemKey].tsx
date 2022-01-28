@@ -38,7 +38,6 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
   const [userCode, setUserCode] = useState(codingExerciseData?.startingCode || '');
   const [testResults, setTestResults] = useState([] as testResult[]);
   const [numTestsPassed, setNumTestsPassed] = useState(0);
-  const [numTestsFailed, setNumTestsFailed] = useState(0);
   const [overallResult, setOverallResult] = useState('');
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -49,13 +48,13 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
     setErrorMessage('');
 
     axios
-      .post(`/api/testcode/${router.query.problemKey}`, { userCode })
-      .then(({ data }: testcodeRouteResponse) => {
+      .post(`/api/newtestcode/${router.query.problemKey}`, { userCode })
+      .then(({ data }) => {
         setTestResults(data.testResults);
         setNumTestsPassed(data.numTestsPassed);
-        setNumTestsFailed(data.numTestsFailed);
         setOverallResult(data.overallResult);
         setIsFetchingData(false);
+        console.log(data);
 
         if (data.overallResult === 'passed' && typeof router.query.problemKey === 'string') {
           setShowModal(true);
@@ -67,11 +66,36 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
           setErrorMessage(err.response.data.message);
         } else {
           console.log(err);
-          setErrorMessage('There was a server error while processing your code. Try again.');
+          setErrorMessage('There was a server error while processing your code. Try again');
         }
 
         setIsFetchingData(false);
       });
+
+    // axios
+    //   .post(`/api/testcode/${router.query.problemKey}`, { userCode })
+    //   .then(({ data }: testcodeRouteResponse) => {
+    //     setTestResults(data.testResults);
+    //     setNumTestsPassed(data.numTestsPassed);
+    //     setNumTestsFailed(data.numTestsFailed);
+    //     setOverallResult(data.overallResult);
+    //     setIsFetchingData(false);
+
+    //     if (data.overallResult === 'passed' && typeof router.query.problemKey === 'string') {
+    //       setShowModal(true);
+    //       saveToLocalStorage(router.query.problemKey);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     if (err.response.status === 400) {
+    //       setErrorMessage(err.response.data.message);
+    //     } else {
+    //       console.log(err);
+    //       setErrorMessage('There was a server error while processing your code. Try again.');
+    //     }
+
+    //     setIsFetchingData(false);
+    //   });
   };
 
   return (
@@ -105,7 +129,6 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
           codingExerciseOverview={codingExerciseData}
           testResults={testResults}
           numTestsPassed={numTestsPassed}
-          numTestsFailed={numTestsFailed}
           overallResult={overallResult}
           errorMessage={errorMessage}
           isRunningTests={isFetchingData}

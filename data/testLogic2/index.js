@@ -1,9 +1,7 @@
 const sum = (num1, num2) => {
-  // Add Code Below
   return num1 + num2;
+};
 
-  // Add Code Above
-}
 const runTests = () => {
   const testResults = [];
   testResults.push({ test: 'User created a function called sum.', passed: typeof sum === 'function' });
@@ -13,5 +11,3 @@ const runTests = () => {
   testResults.push({ test: 'sum(-1, -4) returns -5', passed: sum(-1, -4) === -5 });
   return testResults;
 };
-
-runTests();

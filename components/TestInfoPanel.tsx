@@ -7,7 +7,6 @@ type TestInfoPanelProps = {
   codingExerciseOverview: codingExerciseOverview;
   testResults: testResult[];
   numTestsPassed: number;
-  numTestsFailed: number;
   overallResult: string;
   errorMessage: string;
   isRunningTests: boolean;
@@ -18,7 +17,6 @@ const TestInfoPanel = ({
   codingExerciseOverview,
   testResults,
   numTestsPassed,
-  numTestsFailed,
   overallResult,
   errorMessage,
   isRunningTests,
@@ -39,8 +37,8 @@ const TestInfoPanel = ({
             {testResults.map((result, index) => {
               return (
                 <li key={`test-result-${index}`}>
-                  {result.title} :{' '}
-                  {result.status === 'passed' ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
+                  {result.test} :{' '}
+                  {result.passed ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
                 </li>
               );
             })}

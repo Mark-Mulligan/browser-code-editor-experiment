@@ -12,10 +12,6 @@ export type allExerciseOverviewData = {
 };
 
 export type testResult = {
-  ancestorTitles: string[];
-  failureMessages: string[];
-  fullName: string | null;
-  location: string | null;
-  status: string | null;
-  title: string | null;
+  test: string;
+  passed: boolean;
 };
