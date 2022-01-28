@@ -15,7 +15,15 @@ const StatusLabel = ({ itemsComplete, exerciseKey }: StatusLabelProps) => {
   };
 
   return (
-    <>{checkIfExerciseComplete(exerciseKey) ? <Label color="green">Completed</Label> : <Label>Not Completed</Label>}</>
+    <>
+      {checkIfExerciseComplete(exerciseKey) ? (
+        <Label color="blue" inverted>
+          Completed
+        </Label>
+      ) : (
+        <Label>Not Completed</Label>
+      )}
+    </>
   );
 };
 

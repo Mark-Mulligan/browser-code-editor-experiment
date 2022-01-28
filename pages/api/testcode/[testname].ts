@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import { execSync } from 'child_process';
 import { testScripts } from '../../../data/testLogic';
+import fs from 'fs';
+import { VM } from 'vm2';
 import { testResult } from '../../../types';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const vm = new VM({ timeout: 1000, sandbox: {} });
   const testname = req.query.testname as string;
 
   console.log(testname);
@@ -17,45 +18,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let testScriptName = testOverviewData[testname].testScriptName as
       | 'sumTwoIntsTestScript'
       | 'sortArrayIntsTestScript';
-    let functionCall = testOverviewData[testname].functionCall;
     let testScriptCode = testScripts[testScriptName];
 
-    // write user input to files
-    fs.writeFileSync(`data/${testname}.js`, `${userCode}\n${functionCall}`);
-    fs.writeFileSync(`data/${testname}.test.js`, `${userCode}\n`);
+    let testResults = [] as testResult[];
 
-    // write tests to file
-    fs.appendFileSync(`data/${testname}.test.js`, testScriptCode);
-
-    // run the file in plan javascript to see if it executes or not;
     try {
-      execSync(`node data/${testname}.js`);
-    } catch (err) {
-      res
-        .status(400)
-        .json({ message: 'Code failed to compile.  Please check your code for any syntax errors and try again.' });
+      testResults = vm.run(`${userCode}\n${testScriptCode}`);
+    } catch (err: any) {
+      res.status(400).json({ message: `${err.message}. Code failed to compile.` });
       return;
     }
 
-    // run tests on file and get test results
-    try {
-      execSync(`jest ${testname} --json --outputFile=data/${testname}-results.json`);
-    } catch (err: any) {
-      //console.log(err);
-      console.log(err.stderr.toString());
-    }
-
-    let results = JSON.parse(fs.readFileSync(`data/${testname}-results.json`, 'utf-8'));
-    let testResults = results.testResults[0].assertionResults as testResult[];
-    let overallResult = results.testResults[0].status;
     let numTestsPassed = 0;
-    let numTestsFailed = 0;
-
     testResults.forEach((test) => {
-      test.status === 'passed' ? numTestsPassed++ : numTestsFailed++;
+      if (test.passed === true) {
+        numTestsPassed++;
+      }
     });
 
-    res.status(200).json({ testResults, numTestsPassed, numTestsFailed, overallResult });
+    const overallResult = testResults.length === numTestsPassed ? 'passed' : 'failed';
+
+    res.status(200).json({ testResults, numTestsPassed, overallResult });
   }
 };
 

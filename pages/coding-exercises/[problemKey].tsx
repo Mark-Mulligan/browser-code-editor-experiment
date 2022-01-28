@@ -48,8 +48,8 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
     setErrorMessage('');
 
     axios
-      .post(`/api/newtestcode/${router.query.problemKey}`, { userCode })
-      .then(({ data }) => {
+      .post(`/api/testcode/${router.query.problemKey}`, { userCode })
+      .then(({ data }: testcodeRouteResponse) => {
         setTestResults(data.testResults);
         setNumTestsPassed(data.numTestsPassed);
         setOverallResult(data.overallResult);
@@ -71,31 +71,6 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
 
         setIsFetchingData(false);
       });
-
-    // axios
-    //   .post(`/api/testcode/${router.query.problemKey}`, { userCode })
-    //   .then(({ data }: testcodeRouteResponse) => {
-    //     setTestResults(data.testResults);
-    //     setNumTestsPassed(data.numTestsPassed);
-    //     setNumTestsFailed(data.numTestsFailed);
-    //     setOverallResult(data.overallResult);
-    //     setIsFetchingData(false);
-
-    //     if (data.overallResult === 'passed' && typeof router.query.problemKey === 'string') {
-    //       setShowModal(true);
-    //       saveToLocalStorage(router.query.problemKey);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     if (err.response.status === 400) {
-    //       setErrorMessage(err.response.data.message);
-    //     } else {
-    //       console.log(err);
-    //       setErrorMessage('There was a server error while processing your code. Try again.');
-    //     }
-
-    //     setIsFetchingData(false);
-    //   });
   };
 
   return (
@@ -136,6 +111,7 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
         />
         <div className={styles.codeContainer}>
           <CodeMirror
+            theme={'dark'}
             value={userCode}
             height="auto"
             extensions={[javascript({ jsx: true })]}

@@ -83,7 +83,7 @@ const TestInfoPanel = ({
         paddingLeft: '10px',
         paddingRight: '10px',
         paddingTop: '1rem',
-        background: 'rgb(240, 240, 240)',
+        background: 'rgb(30, 30, 30)',
       }}
     >
       <h2>{codingExerciseOverview.title}</h2>
@@ -98,16 +98,18 @@ const TestInfoPanel = ({
       <h3>Test Results</h3>
       {renderTestResults()}
 
-      <Dimmer active={isRunningTests} inverted>
+      <Dimmer active={isRunningTests}>
         <Loader>Running Tests</Loader>
       </Dimmer>
 
-      <Button className="mb-10" fluid positive onClick={handleCodeSubmit}>
+      <Button className="mb-10" fluid inverted color="blue" onClick={handleCodeSubmit}>
         Submit Code
       </Button>
 
       <Link href="/coding-exercises" passHref>
-        <Button fluid>Back To Exercises</Button>
+        <Button fluid inverted>
+          Back To Exercises
+        </Button>
       </Link>
     </Resizable>
   );

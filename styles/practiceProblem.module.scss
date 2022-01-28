@@ -1,6 +1,9 @@
+@import './Variables.scss';
+
 .codingPracticeContainer {
   display: flex;
   min-height: calc(100vh - 42px);
+  background: $code-background;
 
   .codeContainer {
     width: 100%;
