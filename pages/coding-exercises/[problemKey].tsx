@@ -84,7 +84,7 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
       <Modal basic onClose={() => setShowModal(false)} onOpen={() => setShowModal(true)} open={showModal} size="small">
         <Header icon>
           <Icon name="check circle" />
-          Exercise Complete
+          <h2>All Tests Passed!</h2>
         </Header>
         <Modal.Content></Modal.Content>
         <Modal.Actions style={{ textAlign: 'center' }}>
@@ -92,7 +92,7 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
             <Icon name="remove" /> Stay Here
           </Button>
           <Link href="/coding-exercises" passHref>
-            <Button color="green" inverted onClick={() => setShowModal(false)}>
+            <Button color="blue" inverted onClick={() => setShowModal(false)}>
               <Icon name="checkmark" /> More challenges
             </Button>
           </Link>
