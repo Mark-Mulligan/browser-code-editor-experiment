@@ -1,42 +1,42 @@
-const sortArrayIntsTestScript = `const testCases = [
-  { numArr: [1, 2, 6, 4, 2], result: [1, 2, 2, 4, 6] },
-  { numArr: [10, -3, 2, -1, 7, 9], result: [-3, -1, 2, 7, 9, 10] },
-  { numArr: [-1, 1000, 10, 22, -22, 3], result: [-22, -1, 3, 10, 22, 1000] }
-];
-
-describe('Sort Array of Integers', () => {
-  test('User created a function called sortArr', () => {
-    expect(typeof sortArr).toBe('function');
+const countTheVowelsTestScript = `const testCases = [
+  { str: 'This is a test sentence.', result: 7 },
+  { str: "If you have not checked out FreeCodeCamp, you should. It's Awesome!!!", result: 26 },
+  { str: 'THIS IS UPPER CASE. this is lowercase.', result: 12}
+ ];
+ 
+ describe('Count The Vowels', () => {
+  test('User created a function called vowelCount', () => {
+    expect(typeof vowelCount).toBe('function');
   });
 
-  test.each(testCases)('sortArr($numArr) returns $result.', ({ numArr, result }) => {
-    let userResult = sortArr(numArr);
+  test('vowelCount returns a number', () => {
+    expect(typeof vowelCount('test')).toBe('number')
+  });
 
-    userResult.forEach((item, index) => {
-      expect(item).toBe(result[index]);
-    })
+  test.each(testCases)('vowelCount($str) returns $result.', ({ str, result }) => {
+    expect(vowelCount(str)).toBe(result);
   })
 });`;
 
-const sortArr = (numArr) => {
-  return numArr.sort((a, b) => a - b);
+const vowelCount = (str) => {
+  return str;
 };
 
 const runTests = () => {
   const testResults = [];
-  testResults.push({ test: 'User created a function called sortArr.', passed: typeof sortArr === 'function' });
-  testResults.push({ test: 'Function returns an array', passed: typeof sortArr(1, 2) === 'array' });
+  testResults.push({ test: 'User created a function called vowelCount.', passed: typeof vowelCount === 'function' });
+  testResults.push({ test: 'Function returns a number', passed: typeof vowelCount('abcdefg') === 'number' });
   testResults.push({
-    test: 'sortArr([1, 2, 6, 4, 2]) returns [1, 2, 2, 4, 6] ',
-    passed: JSON.stringify(sum([1, 2, 6, 4, 2])) === JSON.stringify([1, 2, 2, 4, 6]),
+    test: 'vowelCount("This is a test sentence.") returns 7 ',
+    passed: vowelCount('This is a test sentence.') === 7,
   });
   testResults.push({
-    test: 'sortArr([10, -3, 2, -1, 7, 9]) returns [-3, -1, 2, 7, 9, 10]',
-    passed: JSON.stringify(sum([10, -3, 2, -1, 7, 9])) === JSON.stringify([-3, -1, 2, 7, 9, 10]),
+    test: 'vowelCount("If you have not checked out FreeCodeCamp, you should. It\'s Awesome!!!") returns 26',
+    passed: vowelCount("If you have not checked out FreeCodeCamp, you should. It's Awesome!!!") === 7,
   });
   testResults.push({
-    test: 'sortArr([-1, 1000, 10, 22, -22, 3]) returns [-22, -1, 3, 10, 22, 1000]',
-    passed: JSON.stringify(sum([-1, 1000, 10, 22, -22, 3])) === JSON.stringify([-22, -1, 3, 10, 22, 1000]),
+    test: 'vowelCount("THIS IS UPPER CASE. this is lowercase.") returns 12',
+    passed: vowelCount('THIS IS UPPER CASE. this is lowercase.') === 7,
   });
   return testResults;
 };

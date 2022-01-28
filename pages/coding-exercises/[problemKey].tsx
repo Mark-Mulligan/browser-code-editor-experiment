@@ -32,6 +32,12 @@ type testcodeRouteResponse = {
   };
 };
 
+type codingExerciseStaticPath = {
+  params: {
+    problemKey: string;
+  };
+};
+
 const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData }) => {
   const router = useRouter();
 
@@ -128,8 +134,15 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
 export default PracticeProblem;
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const codingExercises = ['sum-two-ints', 'sort-array-ints', 'count-the-vowels'];
+
+  let staticPaths: codingExerciseStaticPath[] = [];
+  codingExercises.forEach((exercise) => {
+    staticPaths.push({ params: { problemKey: exercise } });
+  });
+
   return {
-    paths: [{ params: { problemKey: 'sum-two-ints' } }, { params: { problemKey: 'sort-array-ints' } }],
+    paths: staticPaths,
     fallback: false,
   };
 };
