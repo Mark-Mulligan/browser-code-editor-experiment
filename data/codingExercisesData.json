@@ -50,7 +50,7 @@
       "User created a function called vowelCount",
       "vowelCount returns a number",
       "vowelCount('This is a test sentence.') returns 7",
-      "vowelCount('If you have not checked out FreeCodeCamp, you should. It's Awesome!!!') returns 26",
+      "vowelCount('If you have not checked out FreeCodeCamp, you should. It is Awesome!!!') returns 27",
       "vowelCount('THIS IS UPPER CASE. this is lowercase.') returns 12"
     ]
   },

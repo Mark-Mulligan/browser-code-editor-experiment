@@ -60,12 +60,12 @@ const countTheVowelsTestScript = `const runTests = () => {
     passed: vowelCount('This is a test sentence.') === 7,
   });
   testResults.push({
-    test: 'vowelCount("If you have not checked out FreeCodeCamp, you should. It\'s Awesome!!!") returns 26',
-    passed: vowelCount("If you have not checked out FreeCodeCamp, you should. It's Awesome!!!") === 7,
+    test: 'vowelCount("If you have not checked out FreeCodeCamp, you should. It is Awesome!!!") returns 27',
+    passed: vowelCount("If you have not checked out FreeCodeCamp, you should. It is Awesome!!!") === 27,
   });
   testResults.push({
     test: 'vowelCount("THIS IS UPPER CASE. this is lowercase.") returns 12',
-    passed: vowelCount('THIS IS UPPER CASE. this is lowercase.') === 7,
+    passed: vowelCount('THIS IS UPPER CASE. this is lowercase.') === 12,
   });
   return testResults;
 };

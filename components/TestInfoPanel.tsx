@@ -77,9 +77,9 @@ const TestInfoPanel = ({
         bottomLeft: false,
         topLeft: false,
       }}
-      defaultSize={{ width: 400, height: 'auto' }}
+      defaultSize={{ width: 450, height: 'auto' }}
       style={{
-        borderRight: '2px solid rgba(34, 36, 38, 0.15)',
+        borderRight: '4px solid rgb(50, 50, 50)',
         paddingLeft: '10px',
         paddingRight: '10px',
         paddingTop: '1rem',
