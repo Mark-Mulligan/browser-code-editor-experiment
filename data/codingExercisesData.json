@@ -5,7 +5,6 @@
     "instructions": "Create a function that takes in two arguments (num1 & num2 that will both be integers) and returns a number that is the sum of the two integers provided.",
     "testScriptName": "sumTwoIntsTestScript",
     "startingCode": "const sum = (num1, num2) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
-    "functionCall": "sum(1, 2);",
     "testCriteria": [
       "User created a function called sum",
       "function returns a number",
@@ -20,7 +19,6 @@
     "instructions": "Create a function that takes in one argument (an array of integers) and a new array with those same integers sorted from least to greatest.",
     "testScriptName": "sortArrayIntsTestScript",
     "startingCode": "const sortArr = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
-    "functionCall": "sortArr([1, 4, 3])",
     "testCriteria": [
       "User created a function called sortArr",
       "sortArr([1, 2, 6, 4, 2]) returns [1, 2, 2, 4, 6]",
@@ -34,7 +32,6 @@
     "instructions": "Given a function that takes in an array of integers, return the largest number from that array.",
     "testScriptName": "largestNumInArrayTestScript",
     "startingCode": "const largestNum = (numArr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
-    "functionCall": "largestNum([1, 2, 3])",
     "testCriteria": [
       "User created a function called largestNum",
       "function return a number",
@@ -49,7 +46,6 @@
     "instructions": "Given a function that takes in a string, return the number of vowels that occur in that string.  Vowels will be a,e,i,o,u, and y.  Make sure to look for upper and lower case letters.",
     "testScriptName": "countTheVowelsTestScript",
     "startingCode": "const vowelCount = (str) => {\n  // Add Code Below\n\n\n // Add Code Above\n}",
-    "functioncall": "vowelCount('test')",
     "testCriteria": [
       "User created a function called vowelCount",
       "vowelCount returns a number",
@@ -64,7 +60,6 @@
     "instructions": "Create a function that takes in a string of days seperated by commas (ex. 'mon,wed,tues').  Return a string of days sorted with Monday being the start of the week and sunday being the last. The possible values in the provided string are 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat', 'sun'.",
     "testScriptName": "sortTheDaysTestScript",
     "startingCode": "const sortDays = (dayStr) => {\n  // Add Code Below\n\n\n // Add Code Above\n}",
-    "functionCall": "sortDays('mon,wed,tues')",
     "testCriteria": [
       "User created a function called sortDays",
       "sortDays returns a number",
