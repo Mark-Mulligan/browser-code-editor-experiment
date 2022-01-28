@@ -45,7 +45,7 @@
     "description": "Create a function that counts the number of vowels there are in a string.",
     "instructions": "Given a function that takes in a string, return the number of vowels that occur in that string.  Vowels will be a,e,i,o,u, and y.  Make sure to look for upper and lower case letters.",
     "testScriptName": "countTheVowelsTestScript",
-    "startingCode": "const vowelCount = (str) => {\n  // Add Code Below\n\n\n // Add Code Above\n}",
+    "startingCode": "const vowelCount = (str) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
     "testCriteria": [
       "User created a function called vowelCount",
       "vowelCount returns a number",
@@ -59,10 +59,10 @@
     "description": "Create a function that sorts the given days of the week.",
     "instructions": "Create a function that takes in a string of days seperated by commas (ex. 'mon,wed,tues').  Return a string of days sorted with Monday being the start of the week and sunday being the last. The possible values in the provided string are 'mon', 'tues', 'wed', 'thurs', 'fri', 'sat', 'sun'.",
     "testScriptName": "sortTheDaysTestScript",
-    "startingCode": "const sortDays = (dayStr) => {\n  // Add Code Below\n\n\n // Add Code Above\n}",
+    "startingCode": "const sortDays = (dayStr) => {\n  // Add Code Below\n\n\n  // Add Code Above\n}",
     "testCriteria": [
       "User created a function called sortDays",
-      "sortDays returns a number",
+      "Function returns a string",
       "sortDays('mon,wed,tues,sat') returns 'mon,tues,wed,sat'",
       "sortDays('sun,sat,fri,thurs,wed,tues,mon') returns 'mon,tues,wed,thrus,fri,sat,sun'",
       "sortDays('wed,tues,sat,fri') returns 'tues,wed,fri,sat'"

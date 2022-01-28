@@ -1,7 +1,10 @@
 import { Resizable } from 're-resizable';
-import { Button, Loader, Icon, Dimmer, Message } from 'semantic-ui-react';
+import { useState, useEffect } from 'react';
+import { Button, Loader, Dimmer } from 'semantic-ui-react';
 import Link from 'next/link';
 import { codingExerciseOverview, testResult } from '../types';
+import TestResultsDisplay from './TestResultsDisplay';
+import TestInstructionsDisplay from './TestInstructionsDisplay';
 import styles from '../styles/testInfoPanel.module.scss';
 
 type TestInfoPanelProps = {
@@ -23,87 +26,76 @@ const TestInfoPanel = ({
   isRunningTests,
   handleCodeSubmit,
 }: TestInfoPanelProps) => {
-  const renderTestResults = () => {
-    if (errorMessage) {
-      return (
-        <Message negative>
-          <Message.Header>{errorMessage}</Message.Header>
-        </Message>
-      );
-    } else {
-      return (
-        <>
-          {testResults.length === 0 && <p>Submit code to get test results</p>}
-          <ul className={styles.testResults}>
-            {testResults.map((testResult, index) => {
-              return (
-                <li key={`test-result-${index}`}>
-                  <div>
-                    {testResult.test} :{' '}
-                    {testResult.passed ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
-                  </div>
-                  <div>
-                    Your code returned --{`>`} {testResult.result}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          {testResults.length > 0 && renderResultMessage()}
-        </>
-      );
-    }
+  const [windowWidth, setWindowWidth] = useState(1400);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
   };
 
-  const renderResultMessage = () => {
-    if (overallResult === 'passed') {
-      return (
-        <Message positive>
-          {numTestsPassed} / {testResults.length} Tests Passed.
-        </Message>
-      );
-    }
+  useEffect(() => {
+    addEventListener('resize', handleResize);
+    handleResize();
 
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
+  if (windowWidth >= 800) {
     return (
-      <Message negative>
-        {numTestsPassed} / {testResults.length} Tests Passed.
-      </Message>
+      <Resizable
+        enable={{
+          top: false,
+          right: true,
+          bottom: false,
+          left: false,
+          topRight: false,
+          bottomRight: false,
+          bottomLeft: false,
+          topLeft: false,
+        }}
+        defaultSize={{ width: 500, height: 'auto' }}
+        style={{
+          borderRight: '4px solid rgb(50, 50, 50)',
+          padding: '1rem 10px 2rem 10px',
+          background: 'rgb(30, 30, 30)',
+        }}
+        className={styles.testInfoPanel}
+      >
+        <TestInstructionsDisplay codingExerciseOverview={codingExerciseOverview} />
+
+        <TestResultsDisplay
+          testResults={testResults}
+          overallResult={overallResult}
+          errorMessage={errorMessage}
+          numTestsPassed={numTestsPassed}
+        />
+
+        <Dimmer active={isRunningTests}>
+          <Loader>Running Tests</Loader>
+        </Dimmer>
+
+        <Button className="mb-10" fluid inverted color="blue" onClick={handleCodeSubmit}>
+          Submit Code
+        </Button>
+
+        <Link href="/coding-exercises" passHref>
+          <Button fluid inverted>
+            Back To Exercises
+          </Button>
+        </Link>
+      </Resizable>
     );
-  };
+  }
 
   return (
-    <Resizable
-      enable={{
-        top: false,
-        right: true,
-        bottom: false,
-        left: false,
-        topRight: false,
-        bottomRight: false,
-        bottomLeft: false,
-        topLeft: false,
-      }}
-      defaultSize={{ width: 500, height: 'auto' }}
-      style={{
-        borderRight: '4px solid rgb(50, 50, 50)',
-        paddingLeft: '10px',
-        paddingRight: '10px',
-        paddingTop: '1rem',
-        background: 'rgb(30, 30, 30)',
-      }}
-      className={styles.testInfoPanel}
-    >
-      <h2>{codingExerciseOverview.title}</h2>
-      <p>{codingExerciseOverview.instructions}</p>
-      <h3>Test Criteria</h3>
-      <ul>
-        {codingExerciseOverview.testCriteria.map((test, index) => {
-          return <li key={`test-${index}`}>{test}</li>;
-        })}
-      </ul>
+    <div style={{ padding: '1rem 10px 2rem 10px', background: 'rgb(30, 30, 30)' }}>
+      <TestInstructionsDisplay codingExerciseOverview={codingExerciseOverview} />
 
-      <h3>Test Results</h3>
-      {renderTestResults()}
+      <TestResultsDisplay
+        testResults={testResults}
+        overallResult={overallResult}
+        errorMessage={errorMessage}
+        numTestsPassed={numTestsPassed}
+      />
 
       <Dimmer active={isRunningTests}>
         <Loader>Running Tests</Loader>
@@ -118,7 +110,7 @@ const TestInfoPanel = ({
           Back To Exercises
         </Button>
       </Link>
-    </Resizable>
+    </div>
   );
 };
 

@@ -7,6 +7,13 @@
 
   .codeContainer {
     width: 100%;
+    padding-bottom: 3rem;
     // padding-top: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .codingPracticeContainer {
+    display: block;
   }
 }

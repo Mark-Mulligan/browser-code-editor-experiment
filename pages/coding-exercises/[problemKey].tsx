@@ -134,7 +134,13 @@ const PracticeProblem: NextPage<PracticeProblemProps> = ({ codingExerciseData })
 export default PracticeProblem;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const codingExercises = ['sum-two-ints', 'sort-array-ints', 'count-the-vowels', 'largest-num-in-array'];
+  const codingExercises = [
+    'sum-two-ints',
+    'sort-array-ints',
+    'count-the-vowels',
+    'largest-num-in-array',
+    'sort-the-days',
+  ];
 
   let staticPaths: codingExerciseStaticPath[] = [];
   codingExercises.forEach((exercise) => {

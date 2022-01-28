@@ -106,25 +106,37 @@ const countTheVowelsTestScript = `const runTests = () => {
 
 runTests();`;
 
-const sortTheDaysTestScript = `const testCases = [
-  { str: 'mon,wed,tues,sat', result: 'mon,tues,wed,sat' },
-  { str: 'sun,sat,fri,thurs,wed,tues,mon', result: 'mon,tues,wed,thurs,fri,sat,sun' },
-  { str: 'wed,tues,sat,fri', result: 'tues,wed,fri,sat' }
- ];
- 
- describe('Sort The Days', () => {
-  test('User created a function called sortDays', () => {
-    expect(typeof sortDays).toBe('function');
+const sortTheDaysTestScript = `const runTests = () => {
+  const testResults = [];
+  testResults.push({
+    test: 'User created a function called sortDays.',
+    passed: typeof sortDays === 'function',
+    result: typeof sortDays,
   });
-
-  test('sortDays returns a string', () => {
-    expect(typeof sortDays('mon,wed,tues')).toBe('string')
+  testResults.push({
+    test: 'Function returns a string',
+    passed: typeof sortDays('mon,wed,tues') === 'string',
+    result: typeof sortDays('mon,wed,tues'),
   });
+  testResults.push({
+    test: 'sortDays("mon,wed,tues,sat") returns "mon,tues,wed,sat" ',
+    passed: sortDays('mon,wed,tues,sat') === 'mon,tues,wed,sat',
+    result: sortDays('mon,wed,tues,sat'),
+  });
+  testResults.push({
+    test: 'sortDays("sun,sat,fri,thurs,wed,tues,mon") returns "mon,tues,wed,thurs,fri,sat,sun"',
+    passed: sortDays('sun,sat,fri,thurs,wed,tues,mon') === 'mon,tues,wed,thurs,fri,sat,sun',
+    result: sortDays('sun,sat,fri,thurs,wed,tues,mon'),
+  });
+  testResults.push({
+    test: 'vowelCount("wed,tues,sat,fri") returns "tues,wed,fri,sat"',
+    passed: sortDays('wed,tues,sat,fri') === 'tues,wed,fri,sat',
+    result: sortDays('wed,tues,sat,fri'),
+  });
+  return testResults;
+};
 
-  test.each(testCases)('sortDays($str) returns $result.', ({ str, result }) => {
-    expect(sortDays(str)).toBe(result);
-  })
-});`;
+runTests();`;
 
 export const testScripts = {
   sumTwoIntsTestScript,

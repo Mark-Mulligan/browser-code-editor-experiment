@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let testResults = [] as testResult[];
 
     // for developer de-bugging purposes
-    // fs.writeFileSync(`data/${testname}.js`, `${userCode}\n${testScriptCode}`);
+    fs.writeFileSync(`data/${testname}.js`, `${userCode}\n${testScriptCode}`);
 
     try {
       testResults = vm.run(`${userCode}\n${testScriptCode}`);
