@@ -83,7 +83,7 @@ const TestInfoPanel = ({
         bottomLeft: false,
         topLeft: false,
       }}
-      defaultSize={{ width: 450, height: 'auto' }}
+      defaultSize={{ width: 500, height: 'auto' }}
       style={{
         borderRight: '4px solid rgb(50, 50, 50)',
         paddingLeft: '10px',

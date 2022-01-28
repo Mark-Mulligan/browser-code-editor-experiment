@@ -18,36 +18,36 @@ const largestNumInArrayTestScript = `const testCases = [
   })
 });`;
 
-const sortArr = (numArr) => {
-  return numArr;
+const vowelCount = (str) => {
+  return str;
 };
 
 const runTests = () => {
   const testResults = [];
   testResults.push({
-    test: 'User created a function called sortArr.',
-    passed: typeof sortArr === 'function',
-    result: typeof sortArr,
+    test: 'User created a function called vowelCount.',
+    passed: typeof vowelCount === 'function',
+    result: typeof vowelCount,
   });
   testResults.push({
-    test: 'Function returns an array',
-    passed: Array.isArray(sortArr([1, 4, 3, 2])),
-    result: JSON.stringify(sortArr([1, 4, 3, 2])),
+    test: 'Function returns a number',
+    passed: typeof vowelCount('abcdefg') === 'number',
+    result: typeof vowelCount('abcdefg'),
   });
   testResults.push({
-    test: 'sortArr([1, 2, 6, 4, 2]) returns [1, 2, 2, 4, 6] ',
-    passed: JSON.stringify(sortArr([1, 2, 6, 4, 2])) === JSON.stringify([1, 2, 2, 4, 6]),
-    result: sortArr([1, 2, 6, 4, 2]),
+    test: 'vowelCount("This is a test sentence.") returns 7 ',
+    passed: vowelCount('This is a test sentence.') === 7,
+    result: vowelCount('This is a test sentence.'),
   });
   testResults.push({
-    test: 'sortArr([10, -3, 2, -1, 7, 9]) returns [-3, -1, 2, 7, 9, 10]',
-    passed: JSON.stringify(sortArr([10, -3, 2, -1, 7, 9])) === JSON.stringify([-3, -1, 2, 7, 9, 10]),
-    result: sortArr([10, -3, 2, -1, 7, 9]),
+    test: 'vowelCount("If you have not checked out FreeCodeCamp, you should. It is Awesome!!!") returns 27',
+    passed: vowelCount('If you have not checked out FreeCodeCamp, you should. It is Awesome!!!') === 27,
+    result: vowelCount('If you have not checked out FreeCodeCamp, you should. It is Awesome!!!'),
   });
   testResults.push({
-    test: 'sortArr([-1, 1000, 10, 22, -22, 3]) returns [-22, -1, 3, 10, 22, 1000]',
-    passed: JSON.stringify(sortArr([-1, 1000, 10, 22, -22, 3])) === JSON.stringify([-22, -1, 3, 10, 22, 1000]),
-    result: sortArr([-1, 1000, 10, 22, -22, 3]),
+    test: 'vowelCount("THIS IS UPPER CASE. this is lowercase.") returns 12',
+    passed: vowelCount('THIS IS UPPER CASE. this is lowercase.') === 12,
+    result: vowelCount('THIS IS UPPER CASE. this is lowercase.'),
   });
   return testResults;
 };

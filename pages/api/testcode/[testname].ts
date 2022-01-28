@@ -8,8 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const vm = new VM({ timeout: 1000, sandbox: {} });
   const testname = req.query.testname as string;
 
-  console.log(testname);
-
   if (req.method === 'POST') {
     const { userCode } = req.body;
 
@@ -22,7 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     let testResults = [] as testResult[];
 
-    fs.writeFileSync(`data/${testname}.js`, `${userCode}\n${testScriptCode}`);
+    // for developer de-bugging purposes
+    // fs.writeFileSync(`data/${testname}.js`, `${userCode}\n${testScriptCode}`);
 
     try {
       testResults = vm.run(`${userCode}\n${testScriptCode}`);
