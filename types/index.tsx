@@ -14,4 +14,5 @@ export type allExerciseOverviewData = {
 export type testResult = {
   test: string;
   passed: boolean;
+  result: any;
 };

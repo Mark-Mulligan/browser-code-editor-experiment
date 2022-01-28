@@ -2,6 +2,7 @@ import { Resizable } from 're-resizable';
 import { Button, Loader, Icon, Dimmer, Message } from 'semantic-ui-react';
 import Link from 'next/link';
 import { codingExerciseOverview, testResult } from '../types';
+import styles from '../styles/testInfoPanel.module.scss';
 
 type TestInfoPanelProps = {
   codingExerciseOverview: codingExerciseOverview;
@@ -33,12 +34,17 @@ const TestInfoPanel = ({
       return (
         <>
           {testResults.length === 0 && <p>Submit code to get test results</p>}
-          <ul>
-            {testResults.map((result, index) => {
+          <ul className={styles.testResults}>
+            {testResults.map((testResult, index) => {
               return (
                 <li key={`test-result-${index}`}>
-                  {result.test} :{' '}
-                  {result.passed ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
+                  <div>
+                    {testResult.test} :{' '}
+                    {testResult.passed ? <Icon color="green" name="check" /> : <Icon color="red" name="close" />}
+                  </div>
+                  <div>
+                    Your code returned --{`>`} {testResult.result}
+                  </div>
                 </li>
               );
             })}
@@ -85,6 +91,7 @@ const TestInfoPanel = ({
         paddingTop: '1rem',
         background: 'rgb(30, 30, 30)',
       }}
+      className={styles.testInfoPanel}
     >
       <h2>{codingExerciseOverview.title}</h2>
       <p>{codingExerciseOverview.instructions}</p>
