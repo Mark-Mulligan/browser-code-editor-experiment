@@ -40,13 +40,20 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
     <Container className={styles.container}>
       <h1 className={styles.title}>Coding Exercises</h1>
       <Form className={styles.searchContainer}>
-        <Form.Field style={{ marginBottom: 0 }}>
-          <input type="text" placeholder="Search exercises..." value={search} onChange={handleSearchInputChange} />
+        <Form.Field style={{ marginRight: 20, marginBottom: 20 }} inline>
+          <input
+            style={{ minWidth: 196 }}
+            type="text"
+            placeholder="Search exercises..."
+            value={search}
+            onChange={handleSearchInputChange}
+          />
         </Form.Field>
 
         <Dropdown
           value={statusFilter}
           selection
+          style={{ marginRight: 20, marginBottom: 20, alignSelf: 'start' }}
           onChange={handleStatusFilterChange}
           options={[
             { key: 'all', value: 'all', text: 'All' },
@@ -55,7 +62,7 @@ const CodingExercises: NextPage<CodingExercisesProps> = ({ codingExercisesOvervi
           ]}
         />
 
-        <Button onClick={resetCompletedClick} inverted>
+        <Button onClick={resetCompletedClick} inverted className={styles.resetCompletedBtn}>
           Reset Completed
         </Button>
       </Form>
