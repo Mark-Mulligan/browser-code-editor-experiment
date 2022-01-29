@@ -140,6 +140,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     'count-the-vowels',
     'largest-num-in-array',
     'sort-the-days',
+    'find-the-index-1',
   ];
 
   let staticPaths: codingExerciseStaticPath[] = [];
